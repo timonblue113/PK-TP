@@ -1,0 +1,46 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    # Job gắn với Environment "github-pages" => đọc được ENVIRONMENT secrets
+    # (Settings > Environments > github-pages > Environment secrets)
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Inject Supabase config
+        env:
+          SB_URL: ${{ secrets.SUPABASE_URL }}
+          SB_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+        run: |
+          if [ -z "$SB_URL" ] || [ -z "$SB_KEY" ]; then
+            echo "::error::Thiếu secret SUPABASE_URL hoặc SUPABASE_ANON_KEY (Settings > Environments > github-pages > Environment secrets)"
+            exit 1
+          fi
+          sed -i "s|__SUPABASE_URL__|$SB_URL|g; s|__SUPABASE_ANON_KEY__|$SB_KEY|g" public/index.html public/admin.html public/check.html
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: public
+
+      - id: deployment
+        uses: actions/deploy-pages@v4

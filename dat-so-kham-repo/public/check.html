@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Kiểm tra kết nối hệ thống</title>
+<style>
+body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:#f4f8fb;color:#0f2a3d;margin:0;padding:14px;line-height:1.5}
+@media(prefers-color-scheme:dark){body{background:#0c1a24;color:#e8f1f7}.r{background:#12263a!important;border-color:#24425a!important}}
+main{max-width:720px;margin:auto}h1{font-size:20px}
+.r{background:#fff;border:1px solid #d8e3ec;border-left:6px solid #999;border-radius:10px;padding:12px;margin:10px 0}
+.r.ok{border-left-color:#16794c}.r.no{border-left-color:#b42318}.r.wa{border-left-color:#d98a00}
+.r b{display:block}.r small{display:block;opacity:.85;margin-top:4px;word-break:break-word}
+button{font:inherit;font-weight:700;padding:12px 18px;border:0;border-radius:10px;background:#0a7ea4;color:#fff;min-height:48px}
+</style>
+</head>
+<body><main>
+<h1>🔧 Kiểm tra kết nối hệ thống</h1>
+<p>Trang này tự kiểm tra từng bước. Chỉ dùng khi cài đặt, xong thì xóa file <code>check.html</code>.</p>
+<button id="go">Chạy kiểm tra lại</button>
+<div id="out"></div>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.2/dist/umd/supabase.js"></script>
+<script>
+const SUPABASE_URL = "__SUPABASE_URL__";
+const SUPABASE_ANON_KEY = "__SUPABASE_ANON_KEY__";
+const out = document.getElementById("out");
+const esc = s => String(s).replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
+const add = (st,t,d="") => out.insertAdjacentHTML("beforeend",`<div class="r ${st}"><b>${st==="ok"?"✅":st==="no"?"❌":"⚠️"} ${t}</b>${d?`<small>${d}</small>`:""}</div>`);
+
+async function run(){
+  out.innerHTML="";
+  // 1. Khóa đã được chèn?
+  if(SUPABASE_URL.includes("__SUPABASE") || SUPABASE_ANON_KEY.includes("__SUPABASE"))
+    return add("no","Khóa chưa được chèn vào web","Pages chưa chạy bằng GitHub Actions, hoặc workflow chưa chạy lại sau khi thêm secret. Vào Settings → Pages → Source = GitHub Actions rồi Actions → Run workflow.");
+  add("ok","Khóa đã được chèn vào web","URL: "+esc(SUPABASE_URL)+" · Khóa dài "+SUPABASE_ANON_KEY.length+" ký tự");
+  // 2. Định dạng URL
+  if(!/^https:\/\/[a-z0-9]+\.supabase\.co$/.test(SUPABASE_URL))
+    add("no","Định dạng URL chưa đúng","Phải dạng https://abcdxyz.supabase.co (không có / ở cuối, không có /rest/v1, không có khoảng trắng). Đang là: "+esc(JSON.stringify(SUPABASE_URL)));
+  else add("ok","Định dạng URL đúng");
+  // 3. Loại khóa
+  const k=SUPABASE_ANON_KEY;
+  if(k.startsWith("sb_secret_")) add("no","ĐÂY LÀ KHÓA BÍ MẬT (secret)!","Đổi ngay sang khóa publishable/anon, và tạo lại khóa secret trên Supabase vì nó đã lộ ra web.");
+  else if(k.startsWith("sb_publishable_")) add("ok","Khóa dạng publishable (đúng loại)");
+  else if(k.startsWith("eyJ")){
+    try{
+      const p=JSON.parse(atob(k.split(".")[1].replace(/-/g,"+").replace(/_/g,"/")));
+      if(p.role==="service_role") add("no","ĐÂY LÀ KHÓA service_role, RẤT NGUY HIỂM!","Xóa ngay khỏi GitHub, đổi sang khóa anon, và đặt lại (rotate) JWT secret trên Supabase vì khóa đã lộ.");
+      else add("ok","Khóa anon (đúng loại)","role = "+esc(p.role));
+    }catch{ add("wa","Không đọc được khóa","Khóa có thể bị dán thiếu hoặc thừa ký tự.");}
+  } else add("no","Khóa có định dạng lạ","Khóa phải bắt đầu bằng eyJ... hoặc sb_publishable_... Hãy dán lại từ Project Settings → API.");
+  // 4. Mạng tới Supabase
+  try{
+    const r=await fetch(SUPABASE_URL+"/auth/v1/health",{headers:{apikey:SUPABASE_ANON_KEY}});
+    if(r.ok) add("ok","Kết nối tới Supabase được");
+    else add("no","Supabase trả lỗi "+r.status,"Khóa có thể sai. Dán lại khóa anon/publishable.");
+  }catch(e){ return add("no","Không tới được máy chủ Supabase","URL sai chính tả, hoặc project đang bị Paused (vào Supabase bấm Restore project), hoặc mạng bị chặn."); }
+
+  const sb=supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
+  // 5. queue_status
+  {
+    const {data,error}=await sb.rpc("queue_status");
+    if(!error) add("ok","Hàm queue_status hoạt động","Giờ máy chủ VN: "+esc(data.time)+" · Nhi: "+data.nhi+" · Sản: "+data.san);
+    else if(/401|Invalid API key|JWT/i.test(error.message+error.code)) add("no","Khóa bị từ chối",esc(error.message));
+    else add("no","Chưa có hàm queue_status","Chưa chạy schema.sql (hoặc chạy bị lỗi). Chạy lại toàn bộ file supabase/schema.sql trong SQL Editor. Chi tiết: "+esc(error.message));
+  }
+  // 6. register_ticket (gọi với dept sai nên KHÔNG tạo dữ liệu)
+  {
+    const {error}=await sb.rpc("register_ticket",{p_dept:"x",p_name:"t",p_phone:"0",p_age:"",p_gender:"",p_category:"",p_symptoms:"",p_details:{},p_urgent:false});
+    if(error&&error.message.includes("BAD_DEPT")) add("ok","Hàm đăng ký lấy số (register_ticket) đã có");
+    else add("no","Chưa có hàm register_ticket","Chạy lại schema.sql. Chi tiết: "+esc(error?error.message:"không có lỗi?"));
+  }
+  // 7. is_admin
+  {
+    const {error}=await sb.rpc("is_admin");
+    if(error&&/permission denied/i.test(error.message)) add("ok","Cơ chế phân quyền bác sĩ (is_admin) đã có");
+    else if(error) add("no","Chưa có hàm is_admin","Bạn đang chạy schema.sql bản cũ. Chạy lại bản mới. Chi tiết: "+esc(error.message));
+    else add("ok","Cơ chế phân quyền bác sĩ đã có");
+  }
+  // 8. Người lạ không đọc được dữ liệu
+  {
+    const {data,error}=await sb.from("tickets").select("id").limit(1);
+    if(error) add("ok","Người lạ không đọc được bảng bệnh nhân");
+    else if(data.length===0) add("ok","Người lạ không đọc được dữ liệu bệnh nhân","(Bảng chưa có dữ liệu thì kết quả này chưa chứng minh hết; kiểm tra lại sau khi có người đăng ký.)");
+    else add("no","CẢNH BÁO: người lạ đọc được dữ liệu bệnh nhân!","Chạy lại schema.sql để bật bảo mật (RLS).");
+  }
+}
+document.getElementById("go").onclick=run; run();
+</script>
+</body>
+</html>
