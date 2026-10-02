@@ -2,10 +2,21 @@
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#0a7ea4">
 <meta name="robots" content="noindex">
 <title>Bác sĩ – Danh sách khám</title>
+<script>
+/* Tự phóng to khi trình duyệt ở chế độ "Trang web máy tính", và nút Aa chỉnh cỡ chữ */
+(function(){
+ var L=[1,1.15,1.3,1.5],base=1,i=0,d=document.documentElement;
+ try{i=parseInt(localStorage.getItem("pk_zi"))||0}catch(e){}
+ try{if(screen.width<=500&&innerWidth>=700&&matchMedia("(orientation:portrait)").matches&&navigator.maxTouchPoints>0)base=Math.min(3,innerWidth/screen.width)}catch(e){}
+ function ap(){d.style.zoom=base*L[i%4]}
+ ap();
+ document.addEventListener("DOMContentLoaded",function(){var b=document.getElementById("zm");if(b)b.onclick=function(){i=(i+1)%4;try{localStorage.setItem("pk_zi",i)}catch(e){}ap()}});
+})();
+</script>
 <style>
 :root{--bg:#f2f7fa;--card:#fff;--text:#0f2a3d;--muted:#5b7183;--pri:#0a7ea4;--line:#d8e3ec;--err:#b42318;--ok:#16794c}
 @media(prefers-color-scheme:dark){:root{--bg:#0c1a24;--card:#12263a;--text:#e8f1f7;--muted:#93a9ba;--pri:#3bb2d8;--line:#24425a}}
@@ -34,6 +45,11 @@ button{cursor:pointer;font-weight:700}.pri{background:var(--pri);color:#fff;bord
 #login{max-width:360px;margin:50px auto;display:grid;gap:12px;padding:0 6px}
 @media(max-width:520px){.item{grid-template-columns:42px 1fr;padding:12px;gap:8px}.no{font-size:30px}}
 @media print{.top,.act{display:none}.item{break-inside:avoid}}
+
+/* ===== Chống bị thu nhỏ trên trình duyệt ===== */
+html{overflow-x:hidden;max-width:100%}
+img,canvas{max-width:100%}
+.row>*,.tabs>*{min-width:0}
 </style>
 </head>
 <body>
@@ -45,7 +61,7 @@ button{cursor:pointer;font-weight:700}.pri{background:var(--pri);color:#fff;bord
 
 <div id="panel" hidden>
   <div class="top">
-    <div class="bar"><input type="date" id="dt"><button id="rf">⟳</button><button id="pr">In</button><button id="lo">Thoát</button>
+    <div class="bar"><input type="date" id="dt"><button id="zm" type="button" aria-label="Chỉnh cỡ chữ">Aa</button><button id="rf">⟳</button><button id="pr">In</button><button id="lo">Thoát</button>
       <input type="search" id="q" placeholder="Tìm tên hoặc số điện thoại…"></div>
     <div class="tabs" id="tabs"></div>
   </div>

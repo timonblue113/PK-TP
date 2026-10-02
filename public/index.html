@@ -2,10 +2,21 @@
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#0a7ea4">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <title>Lấy số khám Nhi – Sản</title>
+<script>
+/* Tự phóng to khi trình duyệt ở chế độ "Trang web máy tính", và nút Aa chỉnh cỡ chữ */
+(function(){
+ var L=[1,1.15,1.3,1.5],base=1,i=0,d=document.documentElement;
+ try{i=parseInt(localStorage.getItem("pk_zi"))||0}catch(e){}
+ try{if(screen.width<=500&&innerWidth>=700&&matchMedia("(orientation:portrait)").matches&&navigator.maxTouchPoints>0)base=Math.min(3,innerWidth/screen.width)}catch(e){}
+ function ap(){d.style.zoom=base*L[i%4]}
+ ap();
+ document.addEventListener("DOMContentLoaded",function(){var b=document.getElementById("zm");if(b)b.onclick=function(){i=(i+1)%4;try{localStorage.setItem("pk_zi",i)}catch(e){}ap()}});
+})();
+</script>
 <style>
 :root{--bg:#f2f7fa;--card:#fff;--text:#0f2a3d;--muted:#5b7183;--pri:#0a7ea4;--line:#d8e3ec;--ok:#16794c;--err:#b42318;--dis:#eaf0f4;--warn:#fff4e5}
 @media(prefers-color-scheme:dark){:root{--bg:#0c1a24;--card:#12263a;--text:#e8f1f7;--muted:#93a9ba;--pri:#3bb2d8;--line:#24425a;--dis:#18314a;--warn:#3a2a10}}
@@ -49,10 +60,17 @@ input:focus,textarea:focus,button:focus-visible{outline:3px solid color-mix(in s
 .mini button.on{border-color:var(--pri);background:var(--pri);color:#fff}
 footer{text-align:center;color:var(--muted);font-size:14px;padding:6px 16px 20px}
 [hidden]{display:none!important}
+
+/* ===== Chống bị thu nhỏ trên trình duyệt ===== */
+html{overflow-x:hidden;max-width:100%}
+img,canvas{max-width:100%}
+.row>*,.tabs>*{min-width:0}
+header{position:relative}
+#zm{position:absolute;right:10px;top:calc(10px + env(safe-area-inset-top,0));min-width:48px;min-height:44px;border-radius:12px;border:2px solid rgba(255,255,255,.75);background:transparent;color:#fff;font:inherit;font-weight:800;font-size:18px;cursor:pointer}
 </style>
 </head>
 <body>
-<header><b>PHÒNG KHÁM NHI – SẢN</b><small>Đăng ký lấy số thứ tự khám</small></header>
+<header><button id="zm" type="button" aria-label="Chỉnh cỡ chữ">Aa</button><b>PHÒNG KHÁM NHI – SẢN</b><small>Đăng ký lấy số thứ tự khám</small></header>
 <main>
   <div class="card" id="banner">Đang tải…</div>
 
