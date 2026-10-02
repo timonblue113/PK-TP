@@ -8,7 +8,7 @@ supabase/schema.sql            # chạy 1 lần trong Supabase SQL Editor
 ```
 
 ## Triển khai (làm 1 lần)
-1. **Supabase**: SQL Editor → dán `supabase/schema.sql` → Run. Authentication → Users → Add user (tài khoản bác sĩ).
+1. **Supabase**: SQL Editor → dán `supabase/schema.sql` → Run. Authentication → Users → Add user (mỗi bác sĩ 1 tài khoản), rồi cấp quyền theo phòng bằng lệnh SQL ở cuối file schema.
 2. **Bật Pages trước**: Settings → Pages → Source = **GitHub Actions** (GitHub tự tạo Environment `github-pages`).
 3. **Environment secrets**: Settings → Environments → `github-pages`:
    - *Deployment branches and tags* → **Selected branches** → chỉ cho `main`

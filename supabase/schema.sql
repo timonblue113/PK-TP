@@ -22,22 +22,31 @@ create table public.tickets (
 
 alter table public.tickets enable row level security;
 
--- Danh sách bác sĩ được phép xem dữ liệu (không ai ngoài hệ thống đọc/ghi được bảng này)
+-- Bác sĩ được phép xem dữ liệu. dept: 'all' = xem cả 2 phòng, 'nhi' = chỉ phòng Nhi, 'san' = chỉ phòng Sản
 create table if not exists public.admins (user_id uuid primary key references auth.users(id) on delete cascade);
+alter table public.admins add column if not exists dept text not null default 'all';
 alter table public.admins enable row level security;
 
 create or replace function public.is_admin() returns boolean
 language sql security definer stable set search_path = public as $$
   select exists (select 1 from admins where user_id = auth.uid());
 $$;
-grant execute on function public.is_admin() to authenticated;
+create or replace function public.my_dept() returns text
+language sql security definer stable set search_path = public as $$
+  select dept from admins where user_id = auth.uid();
+$$;
+create or replace function public.can_see(d text) returns boolean
+language sql security definer stable set search_path = public as $$
+  select exists (select 1 from admins where user_id = auth.uid() and (dept = 'all' or dept = d));
+$$;
+grant execute on function public.is_admin(), public.my_dept(), public.can_see(text) to authenticated;
 
 drop policy if exists "staff read" on public.tickets;
 drop policy if exists "staff update" on public.tickets;
 drop policy if exists "admin read" on public.tickets;
 drop policy if exists "admin update" on public.tickets;
-create policy "admin read"   on public.tickets for select to authenticated using (public.is_admin());
-create policy "admin update" on public.tickets for update to authenticated using (public.is_admin()) with check (public.is_admin());
+create policy "admin read"   on public.tickets for select to authenticated using (public.can_see(dept));
+create policy "admin update" on public.tickets for update to authenticated using (public.can_see(dept)) with check (public.can_see(dept));
 
 -- Khách đăng ký qua hàm này: kiểm tra giờ 11:00–15:00 (giờ VN), bỏ thứ 4 & CN, cấp số tự động
 create or replace function public.register_ticket(
@@ -83,5 +92,10 @@ $$;
 grant execute on function public.register_ticket(text,text,text,text,text,text,text,jsonb,boolean) to anon, authenticated;
 grant execute on function public.queue_status() to anon, authenticated;
 
--- CẤP QUYỀN BÁC SĨ (sau khi tạo user ở Authentication > Users, thay email cho đúng):
--- insert into public.admins(user_id) select id from auth.users where email = 'EMAIL_BAC_SI@gmail.com' on conflict do nothing;
+-- CẤP QUYỀN (sau khi tạo user ở Authentication > Users; thay email cho đúng):
+-- Bác sĩ Hậu chỉ xem phòng Nhi:
+-- insert into public.admins(user_id, dept) select id, 'nhi' from auth.users where email = 'EMAIL_BS_HAU@gmail.com' on conflict (user_id) do update set dept = excluded.dept;
+-- Bác sĩ Nhã chỉ xem phòng Sản:
+-- insert into public.admins(user_id, dept) select id, 'san' from auth.users where email = 'EMAIL_BS_NHA@gmail.com' on conflict (user_id) do update set dept = excluded.dept;
+-- Quản lý xem cả hai phòng:
+-- insert into public.admins(user_id, dept) select id, 'all' from auth.users where email = 'EMAIL_QUAN_LY@gmail.com' on conflict (user_id) do update set dept = excluded.dept;

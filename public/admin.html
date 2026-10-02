@@ -7,33 +7,33 @@
 <meta name="robots" content="noindex">
 <title>Bác sĩ – Danh sách khám</title>
 <style>
-:root{--bg:#f4f8fb;--card:#fff;--text:#0f2a3d;--muted:#5b7183;--pri:#0a7ea4;--line:#d8e3ec;--err:#b42318;--ok:#16794c}
+:root{--bg:#f2f7fa;--card:#fff;--text:#0f2a3d;--muted:#5b7183;--pri:#0a7ea4;--line:#d8e3ec;--err:#b42318;--ok:#16794c}
 @media(prefers-color-scheme:dark){:root{--bg:#0c1a24;--card:#12263a;--text:#e8f1f7;--muted:#93a9ba;--pri:#3bb2d8;--line:#24425a}}
-*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--text)}
-main{max-width:860px;margin:0 auto;padding:14px}
-h1{font-size:20px;margin:6px 0 12px}
-input,select,button{font:inherit;padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--text)}
-button{cursor:pointer;font-weight:600}.pri{background:var(--pri);color:#fff;border-color:var(--pri)}
-.bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;align-items:center}
-.t{border:2px solid var(--line)}.t.on{border-color:var(--pri);background:var(--pri);color:#fff}
-.item{background:var(--card);border:1px solid var(--line);border-left:6px solid var(--pri);border-radius:12px;padding:14px;margin-bottom:10px;display:grid;grid-template-columns:56px 1fr;gap:12px}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--text);font-size:18px;line-height:1.5;-webkit-tap-highlight-color:transparent;padding-bottom:env(safe-area-inset-bottom,0)}
+main{max-width:860px;margin:0 auto;padding:10px}
+h1{font-size:22px;margin:8px 0}
+input,button{font:inherit;font-size:18px;min-height:52px;padding:10px 14px;border:1.5px solid var(--line);border-radius:12px;background:var(--card);color:var(--text);touch-action:manipulation}
+button{cursor:pointer;font-weight:700}.pri{background:var(--pri);color:#fff;border-color:var(--pri)}
+.top{position:sticky;top:0;background:var(--bg);padding:calc(8px + env(safe-area-inset-top,0)) 0 8px;z-index:5}
+.bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:8px}
+.bar input[type=date]{flex:1;min-width:150px}.bar input[type=search]{flex:1 1 100%}
+.tabs{display:grid;gap:8px;grid-template-columns:1fr 1fr}.tabs.one{grid-template-columns:1fr}
+.t{min-height:64px;border:2px solid var(--line);line-height:1.25}.t small{display:block;font-weight:500;opacity:.85}
+.t.on{border-color:var(--pri);background:var(--pri);color:#fff}
+.sum{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+.sum span{background:var(--card);border:1px solid var(--line);border-radius:99px;padding:5px 14px;font-size:16px;font-weight:600}
+.item{background:var(--card);border:1px solid var(--line);border-left:7px solid var(--pri);border-radius:14px;padding:14px;margin-bottom:10px;display:grid;grid-template-columns:50px 1fr;gap:10px}
 .item.urgent{border-left-color:var(--err)}.item.done{opacity:.55}
-.no{font-size:34px;font-weight:800;color:var(--pri);text-align:center}.urgent .no{color:var(--err)}
-.b{display:inline-block;padding:2px 10px;border-radius:99px;font-size:13px;font-weight:600;background:color-mix(in srgb,var(--pri) 15%,transparent);color:var(--pri);margin-right:6px}
+.no{font-size:36px;font-weight:800;color:var(--pri);text-align:center;line-height:1.1}.urgent .no{color:var(--err)}
+.b{display:inline-block;padding:3px 12px;border-radius:99px;font-size:15px;font-weight:700;background:color-mix(in srgb,var(--pri) 16%,transparent);color:var(--pri);margin:2px 6px 2px 0}
 .b.r{background:#fdecea;color:var(--err)}
-.sm{font-size:14px;color:var(--muted);margin:4px 0}.sm b{color:var(--text)}
-.act{margin-top:8px;display:flex;gap:6px;flex-wrap:wrap}.act button{padding:6px 12px;font-size:13px}
-#login{max-width:340px;margin:60px auto;display:grid;gap:10px}
-@media print{.bar,.act{display:none}.item{break-inside:avoid}}
-
-/* ===== Tối ưu điện thoại ===== */
-html{-webkit-text-size-adjust:100%}
-body{-webkit-tap-highlight-color:transparent;padding-bottom:env(safe-area-inset-bottom,0)}
-button,input,select{touch-action:manipulation;font-size:16px;min-height:46px}
-.act button{min-height:44px;padding:8px 14px;font-size:15px;flex:1}
-.item a{display:inline-block;padding:2px 0;font-weight:700}
-.bar{position:sticky;top:0;background:var(--bg);padding:8px 0;z-index:5}
-@media(max-width:520px){main{padding:10px}.item{grid-template-columns:44px 1fr;padding:12px;gap:8px}.no{font-size:28px}#login{margin:30px auto;padding:0 14px}}
+.sm{font-size:16px;color:var(--muted);margin:4px 0}.sm b{color:var(--text)}
+.item a{font-weight:800;color:var(--pri);text-decoration:none}
+.act{margin-top:8px;display:flex;gap:6px;flex-wrap:wrap}.act button{flex:1;min-height:50px;font-size:16px;padding:6px 10px}
+#login{max-width:360px;margin:50px auto;display:grid;gap:12px;padding:0 6px}
+@media(max-width:520px){.item{grid-template-columns:42px 1fr;padding:12px;gap:8px}.no{font-size:30px}}
+@media print{.top,.act{display:none}.item{break-inside:avoid}}
 </style>
 </head>
 <body>
@@ -43,14 +43,13 @@ button,input,select{touch-action:manipulation;font-size:16px;min-height:46px}
   <input id="pw" type="password" placeholder="Mật khẩu" autocomplete="current-password">
   <button class="pri" id="lg">Đăng nhập</button><div id="le" style="color:var(--err)"></div></div>
 
-<div id="panel" style="display:none">
-  <h1>Danh sách khám</h1>
-  <div class="bar">
-    <input type="date" id="dt">
-    <button class="t on" data-d="nhi">👶 Nhi</button><button class="t" data-d="san">🤰 Sản</button>
-    <button id="rf">Làm mới</button><button id="pr">In</button><button id="lo">Thoát</button>
+<div id="panel" hidden>
+  <div class="top">
+    <div class="bar"><input type="date" id="dt"><button id="rf">⟳</button><button id="pr">In</button><button id="lo">Thoát</button>
+      <input type="search" id="q" placeholder="Tìm tên hoặc số điện thoại…"></div>
+    <div class="tabs" id="tabs"></div>
   </div>
-  <div id="sum" class="sm"></div><div id="list"></div>
+  <div id="sum" class="sum"></div><div id="list"></div>
 </div>
 </main>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.2/dist/umd/supabase.js"></script>
@@ -60,41 +59,54 @@ const SUPABASE_ANON_KEY = "__SUPABASE_ANON_KEY__";
 const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 const $ = id => document.getElementById(id);
 const esc = s => String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-let dept="nhi", timer;
+const ROOM = {nhi:{n:"Phòng Nhi",doc:"ThS.BS Hậu",i:"👶"}, san:{n:"Phòng Sản",doc:"BS.CK2 Nhã",i:"🤰"}};
+let dept="nhi", allowed="all", all=[], timer;
 $("dt").value = new Date().toLocaleDateString("sv-SE",{timeZone:"Asia/Ho_Chi_Minh"});
 
 async function boot(){
   const {data:{session}}=await sb.auth.getSession();
-  $("login").style.display=session?"none":"grid"; $("panel").style.display=session?"block":"none";
-  if(session){
-    const {data:ok}=await sb.rpc("is_admin");
-    if(!ok){ await sb.auth.signOut(); $("login").style.display="grid"; $("panel").style.display="none"; $("le").textContent="Tài khoản này chưa được cấp quyền bác sĩ."; return; }
-    load(); clearInterval(timer); timer=setInterval(load,30000);
-  }
+  $("login").hidden=!!session; $("panel").hidden=!session;
+  if(!session) return;
+  const {data:ok}=await sb.rpc("is_admin");
+  if(!ok){ await sb.auth.signOut(); $("login").hidden=false; $("panel").hidden=true; $("le").textContent="Tài khoản này chưa được cấp quyền bác sĩ."; return; }
+  const {data:d}=await sb.rpc("my_dept"); allowed=d||"all";
+  if(allowed!=="all") dept=allowed;
+  load(); clearInterval(timer); timer=setInterval(load,30000);
 }
 $("lg").onclick=async()=>{
+  $("le").textContent="";
   const {error}=await sb.auth.signInWithPassword({email:$("em").value.trim(),password:$("pw").value});
   if(error) $("le").textContent="Sai email hoặc mật khẩu."; else boot();
 };
 $("lo").onclick=async()=>{await sb.auth.signOut();clearInterval(timer);boot()};
-$("rf").onclick=load; $("pr").onclick=()=>print(); $("dt").onchange=load;
-document.querySelectorAll(".t").forEach(b=>b.onclick=()=>{dept=b.dataset.d;document.querySelectorAll(".t").forEach(x=>x.classList.toggle("on",x===b));load()});
+$("rf").onclick=load; $("pr").onclick=()=>print(); $("dt").onchange=load; $("q").oninput=render;
 
 async function load(){
-  const {data,error}=await sb.from("tickets").select("*").eq("visit_date",$("dt").value).eq("dept",dept).neq("status","cancelled").order("queue_no");
+  const {data,error}=await sb.from("tickets").select("*").eq("visit_date",$("dt").value).neq("status","cancelled").order("queue_no");
   if(error){$("list").textContent="Không tải được dữ liệu.";return}
-  const w=data.filter(x=>x.status==="waiting").length;
-  $("sum").innerHTML=`Tổng <b>${data.length}</b> · Chờ khám <b>${w}</b> · Có dấu hiệu nguy hiểm <b style="color:var(--err)">${data.filter(x=>x.urgent).length}</b>`;
-  $("list").innerHTML=data.map(t=>{
+  all=data; render();
+}
+function render(){
+  const rooms=allowed==="all"?["nhi","san"]:[allowed];
+  $("tabs").className="tabs"+(rooms.length===1?" one":"");
+  $("tabs").innerHTML=rooms.map(r=>`<button class="t ${r===dept?"on":""}" data-d="${r}">${ROOM[r].i} ${ROOM[r].n}<small>${ROOM[r].doc} · ${all.filter(x=>x.dept===r).length} người</small></button>`).join("");
+  document.querySelectorAll(".t").forEach(b=>b.onclick=()=>{dept=b.dataset.d;render()});
+  const rows=all.filter(x=>x.dept===dept);
+  $("sum").innerHTML=`<span>Tổng ${rows.length}</span><span>Chờ khám ${rows.filter(x=>x.status==="waiting").length}</span><span>Đã khám ${rows.filter(x=>x.status==="done").length}</span><span style="color:var(--err)">⚠ Nguy hiểm ${rows.filter(x=>x.urgent).length}</span>`;
+  const q=$("q").value.trim().toLowerCase();
+  const view=q?rows.filter(t=>(t.full_name+" "+t.phone).toLowerCase().includes(q)):rows;
+  $("list").innerHTML=view.map(t=>{
     const d=t.details||{}, fl=d["Dấu hiệu nguy hiểm"]||[];
     const rest=Object.entries(d).filter(([k])=>k!=="Dấu hiệu nguy hiểm").map(([k,v])=>`<b>${esc(k)}:</b> ${esc(v)}`).join(" · ");
+    const tm=new Date(t.created_at).toLocaleTimeString("vi-VN",{hour:"2-digit",minute:"2-digit",timeZone:"Asia/Ho_Chi_Minh"});
     return `<div class="item ${t.urgent?"urgent":""} ${t.status!=="waiting"?"done":""}">
       <div class="no">${t.queue_no}</div>
-      <div><div><b>${esc(t.full_name)}</b> · ${esc(t.age_text)} ${t.gender?"· "+esc(t.gender):""} · <a href="tel:${esc(t.phone)}">${esc(t.phone)}</a></div>
+      <div><div><b>${esc(t.full_name)}</b> · ${esc(t.age_text)} ${t.gender?"· "+esc(t.gender):""}</div>
+      <div><a href="tel:${esc(t.phone)}">📞 ${esc(t.phone)}</a></div>
       <div style="margin-top:4px"><span class="b">${esc(t.category)}</span>${fl.map(f=>`<span class="b r">⚠ ${esc(f)}</span>`).join("")}</div>
       ${t.symptoms?`<div class="sm"><b>Triệu chứng:</b> ${esc(t.symptoms)}</div>`:""}
       ${rest?`<div class="sm">${rest}</div>`:""}
-      <div class="sm">Đăng ký lúc ${new Date(t.created_at).toLocaleTimeString("vi-VN",{hour:"2-digit",minute:"2-digit",timeZone:"Asia/Ho_Chi_Minh"})} · ${t.status==="done"?"✅ Đã khám":t.status==="absent"?"Vắng":"Đang chờ"}</div>
+      <div class="sm">Đăng ký lúc ${tm} · ${t.status==="done"?"✅ Đã khám":t.status==="absent"?"Vắng":"Đang chờ"}</div>
       <div class="act"><button onclick="setS('${t.id}','done')">✅ Đã khám</button><button onclick="setS('${t.id}','absent')">Vắng</button><button onclick="setS('${t.id}','waiting')">Hoàn tác</button></div></div></div>`;
   }).join("") || '<div class="sm">Chưa có ai đăng ký.</div>';
 }

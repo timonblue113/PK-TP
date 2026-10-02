@@ -4,90 +4,86 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#0a7ea4">
-<title>Đăng ký lấy số khám Nhi – Sản</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>Lấy số khám Nhi – Sản</title>
 <style>
-:root{--bg:#f4f8fb;--card:#fff;--text:#0f2a3d;--muted:#5b7183;--pri:#0a7ea4;--line:#d8e3ec;--ok:#16794c;--err:#b42318;--dis:#eef2f5;--warn:#fff4e5}
+:root{--bg:#f2f7fa;--card:#fff;--text:#0f2a3d;--muted:#5b7183;--pri:#0a7ea4;--line:#d8e3ec;--ok:#16794c;--err:#b42318;--dis:#eaf0f4;--warn:#fff4e5}
 @media(prefers-color-scheme:dark){:root{--bg:#0c1a24;--card:#12263a;--text:#e8f1f7;--muted:#93a9ba;--pri:#3bb2d8;--line:#24425a;--dis:#18314a;--warn:#3a2a10}}
-*{box-sizing:border-box}
-body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.5}
-header{background:var(--pri);color:#fff;padding:18px 16px;text-align:center}
-header b{font-size:21px;display:block}header small{opacity:.92}
-main{max-width:720px;margin:18px auto;padding:0 14px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin-bottom:14px}
-#banner{font-weight:600;text-align:center}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--text);font-size:18px;line-height:1.5;-webkit-tap-highlight-color:transparent;padding-bottom:env(safe-area-inset-bottom,0)}
+button,input,textarea,label{touch-action:manipulation}
+header{background:var(--pri);color:#fff;padding:calc(14px + env(safe-area-inset-top,0)) 16px 14px;text-align:center}
+header b{display:block;font-size:22px}header small{font-size:15px;opacity:.95}
+main{max-width:640px;margin:0 auto;padding:12px 12px 24px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;margin-bottom:12px}
+#banner{text-align:center;font-weight:700;font-size:18px}
 #banner.open{border-color:var(--ok);color:var(--ok)}#banner.closed{border-color:var(--err);color:var(--err)}
-.cnt{display:flex;gap:10px;justify-content:center;margin-top:8px;font-weight:500;color:var(--text);flex-wrap:wrap}
-.cnt span{background:var(--dis);padding:4px 12px;border-radius:99px;font-size:14px}
-.sched{font-size:14px;color:var(--muted)}.sched b{color:var(--text)}
-.tabs{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:6px}
-.tab{padding:12px;border:2px solid var(--line);border-radius:12px;background:var(--card);color:var(--text);font:inherit;font-weight:700;cursor:pointer;text-align:center}
-.tab small{display:block;font-weight:400;color:var(--muted)}
-.tab.on{border-color:var(--pri);background:color-mix(in srgb,var(--pri) 12%,var(--card))}
-label,.lb{display:block;font-weight:600;font-size:14px;margin:14px 0 6px}
-input,textarea,select{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:8px;font:inherit;background:var(--card);color:var(--text)}
-input:focus,textarea:focus,select:focus,button:focus-visible{outline:3px solid color-mix(in srgb,var(--pri) 40%,transparent);border-color:var(--pri)}
-.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}@media(max-width:520px){.row{grid-template-columns:1fr}}
-.chips{display:flex;flex-wrap:wrap;gap:8px}
-.chips label{margin:0;font-weight:500;border:1px solid var(--line);border-radius:99px;padding:8px 14px;cursor:pointer;display:flex;gap:6px;align-items:center}
-.chips input{width:auto;margin:0}
-.chips label:has(input:checked){background:var(--pri);color:#fff;border-color:var(--pri)}
-.flags{background:var(--warn);border-radius:10px;padding:12px}
-.flags label{display:flex;gap:8px;align-items:flex-start;margin:6px 0;font-weight:500}.flags input{width:auto;margin-top:5px}
-.submit{margin-top:18px;width:100%;padding:15px;border:0;border-radius:10px;background:var(--pri);color:#fff;font:inherit;font-weight:700;font-size:16px;cursor:pointer}
+.cnt{display:flex;gap:8px;justify-content:center;margin-top:8px;flex-wrap:wrap}
+.cnt span{background:var(--dis);color:var(--text);padding:5px 14px;border-radius:99px;font-size:16px;font-weight:600}
+.sched{font-size:15.5px;line-height:1.65;color:var(--muted)}.sched b{color:var(--text)}.sched a{color:var(--pri);font-weight:700}
+.tabs{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+.tab{min-height:76px;border:2px solid var(--line);border-radius:14px;background:var(--card);color:var(--text);font:inherit;font-weight:800;font-size:19px;cursor:pointer}
+.tab small{display:block;font-weight:500;color:var(--muted);font-size:15px}
+.tab.on{border-color:var(--pri);background:color-mix(in srgb,var(--pri) 14%,var(--card))}
+label,.lb{display:block;font-weight:700;font-size:17px;margin:18px 0 8px}
+input,textarea{width:100%;padding:12px 14px;border:1.5px solid var(--line);border-radius:12px;font:inherit;font-size:18px;min-height:54px;background:var(--card);color:var(--text)}
+textarea{min-height:96px}
+input:focus,textarea:focus,button:focus-visible{outline:3px solid color-mix(in srgb,var(--pri) 45%,transparent);border-color:var(--pri)}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}@media(max-width:480px){.row{grid-template-columns:1fr}}
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.chips label{margin:0;font-weight:500;font-size:17px;min-height:50px;border:1.5px solid var(--line);border-radius:99px;padding:10px 18px;cursor:pointer;display:flex;gap:8px;align-items:center}
+.chips input{width:22px;height:22px;min-height:0;margin:0}
+.chips label:has(input:checked){background:var(--pri);color:#fff;border-color:var(--pri);font-weight:700}
+.flags{background:var(--warn);border-radius:12px;padding:10px 12px}
+.flags label{display:flex;gap:10px;align-items:center;margin:0;padding:8px 0;min-height:48px;font-weight:500;font-size:17px}
+.flags input{width:26px;height:26px;min-height:0;margin:0;flex:none}
+.hint{font-size:15px;color:var(--muted)}
+.submit,.btn{display:block;width:100%;min-height:60px;border:0;border-radius:14px;background:var(--pri);color:#fff;font:inherit;font-weight:800;font-size:20px;cursor:pointer;margin-top:12px}
+.btn.sec{background:var(--card);color:var(--pri);border:2px solid var(--pri)}
+.submit{position:sticky;bottom:calc(10px + env(safe-area-inset-bottom,0));box-shadow:0 8px 20px rgba(0,0,0,.28);z-index:5}
 .submit:disabled{opacity:.5;cursor:not-allowed}
-.msg{margin-top:12px;padding:12px;border-radius:8px;display:none;font-size:14px;background:#fdecea;color:var(--err)}
-.ticket{text-align:center}.ticket .no{font-size:72px;font-weight:800;color:var(--pri);line-height:1}
-.ticket p{margin:6px 0}
-footer{text-align:center;color:var(--muted);font-size:13px;padding:14px}
-
-/* ===== Tối ưu điện thoại ===== */
-html{-webkit-text-size-adjust:100%}
-body{-webkit-tap-highlight-color:transparent;padding-bottom:env(safe-area-inset-bottom,0)}
-header{padding-top:calc(18px + env(safe-area-inset-top,0))}
-button,label,input,select,textarea{touch-action:manipulation}
-input,select,textarea{font-size:16px;min-height:48px}
-textarea{min-height:84px}
-.tab{min-height:68px;font-size:16px}
-.chips{gap:10px}
-.chips label{min-height:46px;padding:10px 16px;font-size:15px}
-.chips input{width:20px;height:20px;min-height:0}
-.flags label{padding:6px 0;min-height:44px;align-items:center}
-.flags input{width:24px;height:24px;min-height:0;margin:0;flex:none}
-.submit{min-height:56px;position:sticky;bottom:calc(10px + env(safe-area-inset-bottom,0));box-shadow:0 6px 18px rgba(0,0,0,.25);z-index:5}
-.ticket .no{font-size:96px}
-@media(max-width:520px){main{padding:0 10px}.card{padding:14px}header b{font-size:19px}}
+.msg{display:none;margin-top:12px;padding:12px;border-radius:10px;background:#fdecea;color:var(--err);font-size:16px}
+#tv img{width:100%;height:auto;border-radius:14px;border:1px solid var(--line);display:block}
+.mini{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.mini button{padding:8px 16px;border-radius:99px;border:2px solid var(--line);background:var(--card);color:var(--text);font:inherit;font-weight:700;min-height:44px}
+.mini button.on{border-color:var(--pri);background:var(--pri);color:#fff}
+footer{text-align:center;color:var(--muted);font-size:14px;padding:6px 16px 20px}
+[hidden]{display:none!important}
 </style>
 </head>
 <body>
 <header><b>PHÒNG KHÁM NHI – SẢN</b><small>Đăng ký lấy số thứ tự khám</small></header>
 <main>
-<div class="card" id="banner">Đang kiểm tra…</div>
-<div class="card sched">
-  <b>Lịch làm việc:</b> Thứ 2, 3, 5, 6, 7 &nbsp;|&nbsp; <b>Nghỉ:</b> Thứ 4 và Chủ nhật<br>
-  <b>Giờ khám & tư vấn:</b> 17:00 – 20:00 &nbsp;|&nbsp; <b>Đăng ký lấy số:</b> 11:00 – 15:00 mỗi ngày khám<br>
-  Liên hệ: Bs Hậu (Nhi) <a href="tel:0977221472">0977.221.472</a> · Bs Nhã (Sản) <a href="tel:0906991985">0906.991.985</a>
-</div>
+  <div class="card" id="banner">Đang tải…</div>
 
-<div id="app">
-<div class="tabs" role="tablist">
-  <button class="tab on" data-d="nhi" type="button">👶 Khám Nhi<small>ThS.BS Hậu</small></button>
-  <button class="tab" data-d="san" type="button">🤰 Khám Sản<small>BS.CK2 Nhã</small></button>
-</div>
-<form class="card" id="f" novalidate></form>
-</div>
-<div id="done"></div>
+  <section id="tv" hidden></section>
+
+  <section id="fv">
+    <div class="card sched">
+      <b>Khám & tư vấn:</b> 17:00 – 20:00 (nghỉ Thứ 4, Chủ nhật)<br>
+      <b>Lấy số:</b> 11:00 – 15:00 mỗi ngày khám · ai đăng ký trước được số nhỏ<br>
+      Bs Hậu (Nhi) <a href="tel:0977221472">0977.221.472</a> · Bs Nhã (Sản) <a href="tel:0906991985">0906.991.985</a>
+    </div>
+    <div class="tabs">
+      <button class="tab on" data-d="nhi" type="button">👶 Khám Nhi<small>ThS.BS Hậu</small></button>
+      <button class="tab" data-d="san" type="button">🤰 Khám Sản<small>BS.CK2 Nhã</small></button>
+    </div>
+    <form class="card" id="f" novalidate></form>
+  </section>
 </main>
 <footer>Thông tin chỉ dùng để bác sĩ chuẩn bị trước buổi khám và được bảo mật.</footer>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.2/dist/umd/supabase.js"></script>
 <script>
-// ====== CẤU HÌNH: Supabase > Project Settings > API ======
 const SUPABASE_URL = "__SUPABASE_URL__";
 const SUPABASE_ANON_KEY = "__SUPABASE_ANON_KEY__";
-// =========================================================
 const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 const $ = id => document.getElementById(id);
 const MAX = 20;
+const DOC = {nhi:{room:"KHÁM NHI",doc:"ThS.BS Hậu"}, san:{room:"KHÁM SẢN",doc:"BS.CK2 Nhã"}};
+const vnNow = () => new Date().toLocaleString("sv-SE",{timeZone:"Asia/Ho_Chi_Minh"}); // "YYYY-MM-DD HH:MM:SS"
+const vnDate = () => vnNow().slice(0,10);
+const fmtDate = d => d.split("-").reverse().join("/");
 let dept = "nhi", isOpen = false;
 
 const CFG = {
@@ -101,11 +97,18 @@ const CFG = {
     extra:[["Tuổi thai (tuần) hoặc ngày kinh cuối","Tuổi thai / Kinh cuối"],["Số lần sinh (VD: 1 lần, chưa sinh)","Số lần sinh"]]}
 };
 
+/* ---------- Lưu số đã lấy trong ngày (mở lại web là thấy ngay) ---------- */
+const store = {
+  get(){ try{ const o=JSON.parse(localStorage.getItem("pk_t")||"null"); return o&&o.d===vnDate()?o.items:[]; }catch{ return []; } },
+  add(t){ try{ const it=this.get(); it.push(t); localStorage.setItem("pk_t",JSON.stringify({d:vnDate(),items:it})); }catch{} }
+};
+
+/* ---------- Form ---------- */
 function render(){
   const c = CFG[dept];
   $("f").innerHTML = `
   <label for="name">${c.nameL}</label><input id="name" maxlength="100" autocomplete="name" enterkeyhint="next">
-  <div class="row"><div><label for="phone">Số điện thoại *</label><input id="phone" type="tel" inputmode="tel" autocomplete="tel" enterkeyhint="next" placeholder="09xxxxxxxx"></div>
+  <div class="row"><div><label for="phone">Số điện thoại *</label><input id="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="09xxxxxxxx"></div>
   <div><label for="age">${c.ageL}</label><input id="age" maxlength="30"></div></div>
   ${c.gender?`<div class="lb">Giới tính</div><div class="chips">${c.gender.map(g=>`<label><input type="radio" name="g" value="${g}">${g}</label>`).join("")}</div>`:""}
   <div class="row">${c.extra.map((e,i)=>`<div><label for="x${i}">${e[0]}</label><input id="x${i}" maxlength="80"></div>`).join("")}</div>
@@ -115,7 +118,7 @@ function render(){
   <label for="med">Thuốc đã dùng / tiền sử dị ứng</label><textarea id="med" rows="2" maxlength="300"></textarea>
   <div class="lb">Có dấu hiệu nào sau đây không?</div>
   <div class="flags">${c.flags.map(g=>`<label><input type="checkbox" name="fl" value="${g}">${g}</label>`).join("")}</div>
-  <p class="hint" style="font-size:13px;color:var(--muted)">Nếu có dấu hiệu nguy hiểm, hãy đến cơ sở cấp cứu gần nhất hoặc gọi 115 ngay, không chờ đến giờ khám.</p>
+  <p class="hint">Nếu có dấu hiệu nguy hiểm, hãy đến cơ sở cấp cứu gần nhất hoặc gọi 115 ngay, không chờ đến giờ khám.</p>
   <button class="submit" id="btn" type="submit">Lấy số thứ tự</button>
   <div class="msg" id="msg" role="alert"></div>`;
   $("btn").disabled = !isOpen;
@@ -124,26 +127,98 @@ document.querySelectorAll(".tab").forEach(b=>b.onclick=()=>{
   dept=b.dataset.d; document.querySelectorAll(".tab").forEach(x=>x.classList.toggle("on",x===b)); render();
 });
 
+/* ---------- Trạng thái đăng ký ---------- */
 async function status(){
   const {data,error} = await sb.rpc("queue_status");
   const b = $("banner");
-  if(error){ b.className="card closed"; console.error(error); b.textContent="Không kết nối được hệ thống."+(location.search.includes("debug")?" ["+(error.message||error.code||"")+"]":""); return; }
-  const [h,m] = data.time.split(":").map(Number), mins = h*60+m;
-  const off = [0,3].includes(data.dow);
+  if(error){ console.error(error); b.className="card closed"; b.textContent="Không kết nối được hệ thống."+(location.search.includes("debug")?" ["+(error.message||error.code||"")+"]":""); return; }
+  const [h,m] = data.time.split(":").map(Number), mins = h*60+m, off = [0,3].includes(data.dow);
   isOpen = !off && mins>=660 && mins<900;
   b.className = "card " + (isOpen?"open":"closed");
   b.innerHTML = off ? "Hôm nay phòng khám nghỉ (Thứ 4 & Chủ nhật)."
     : mins<660 ? "Chưa mở đăng ký. Mở lúc 11:00 hôm nay."
-    : mins>=900 ? "Đã đóng đăng ký (15:00). Hẹn bạn vào ngày khám tiếp theo."
+    : mins>=900 ? "Đã đóng đăng ký (15:00). Hẹn bạn ngày khám tiếp theo."
     : "✅ ĐANG MỞ ĐĂNG KÝ (11:00 – 15:00)";
   if(!off) b.innerHTML += `<div class="cnt"><span>Nhi: ${data.nhi}/${MAX} số</span><span>Sản: ${data.san}/${MAX} số</span></div>`;
   if($("btn")) $("btn").disabled = !isOpen;
 }
-render(); status(); setInterval(status,30000);
 
+/* ---------- Vẽ phiếu số thành ảnh PNG ---------- */
+const FONT = 'system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif';
+function wrapLines(x,text,maxW,maxL){
+  const L=[]; let cur="";
+  for(const w of String(text).split(/\s+/)){ const t=cur?cur+" "+w:w; if(x.measureText(t).width>maxW&&cur){L.push(cur);cur=w}else cur=t; }
+  if(cur) L.push(cur);
+  if(L.length>maxL){ L.length=maxL; L[maxL-1]=L[maxL-1].replace(/.{0,2}$/,"…"); }
+  return L;
+}
+function drawTicket(t){
+  const W=1080, D=DOC[t.dept];
+  const rows=[["Họ tên",t.name],["Tuổi",t.age],["Điện thoại",t.phone],["Khám về",t.cat]];
+  if(t.sym) rows.push(["Triệu chứng",t.sym]);
+  rows.push(["Ngày khám",fmtDate(t.d)],["Giờ khám","17:00 – 20:00"],["Đăng ký lúc",t.time]);
+  if(t.flags&&t.flags.length) rows.push(["Lưu ý",t.flags.join("; "),true]);
+  const c=document.createElement("canvas"), x=c.getContext("2d");
+  x.font=`600 38px ${FONT}`;
+  const laid=rows.map(r=>({r,L:wrapLines(x,r[1],640,r[0]==="Triệu chứng"?4:3)}));
+  const rowsH=laid.reduce((s,o)=>s+o.L.length*48+24,0);
+  const H=900+rowsH+210;
+  c.width=W; c.height=H;
+  x.fillStyle="#fff"; x.fillRect(0,0,W,H);
+  x.fillStyle="#0a7ea4"; x.fillRect(0,0,W,200);
+  x.textAlign="center"; x.fillStyle="#fff";
+  x.font=`800 56px ${FONT}`; x.fillText("PHÒNG KHÁM NHI – SẢN",W/2,92);
+  x.font=`500 36px ${FONT}`; x.fillText("PHIẾU SỐ THỨ TỰ KHÁM",W/2,150);
+  x.fillStyle="#0f2a3d"; x.font=`800 64px ${FONT}`; x.fillText(D.room,W/2,300);
+  x.fillStyle="#5b7183"; x.font=`500 40px ${FONT}`; x.fillText(D.doc,W/2,356);
+  x.strokeStyle="#0a7ea4"; x.lineWidth=6; x.strokeRect(240,400,600,390);
+  x.fillStyle="#5b7183"; x.font=`600 34px ${FONT}`; x.fillText("SỐ THỨ TỰ",W/2,460);
+  x.fillStyle="#0a7ea4"; x.font=`800 290px ${FONT}`; x.fillText(String(t.no),W/2,740);
+  x.fillStyle="#d8e3ec"; x.fillRect(60,830,W-120,4);
+  let y=900; x.textAlign="left";
+  laid.forEach(({r,L})=>{
+    x.fillStyle="#5b7183"; x.font=`500 32px ${FONT}`; x.fillText(r[0],70,y);
+    x.fillStyle=r[2]?"#b42318":"#0f2a3d"; x.font=`700 38px ${FONT}`;
+    L.forEach((ln,i)=>x.fillText(ln,330,y+i*48));
+    y+=L.length*48+24;
+  });
+  x.fillStyle="#eaf4f8"; x.fillRect(0,H-190,W,190);
+  x.textAlign="center"; x.fillStyle="#0f2a3d"; x.font=`700 34px ${FONT}`;
+  x.fillText("Vui lòng có mặt lúc 17:00 và đưa phiếu này cho nhân viên",W/2,H-120);
+  x.fillStyle="#5b7183"; x.font=`500 30px ${FONT}`;
+  x.fillText("Bs Hậu (Nhi) 0977.221.472  ·  Bs Nhã (Sản) 0906.991.985",W/2,H-60);
+  return c;
+}
+
+/* ---------- Màn hình phiếu số ---------- */
+let cur = null;
+function showTicket(t){
+  cur = t;
+  const items = store.get();
+  const c = drawTicket(t), url = c.toDataURL("image/png");
+  $("fv").hidden = true; $("tv").hidden = false;
+  $("tv").innerHTML = `
+    ${items.length>1?`<div class="mini">${items.map((o,i)=>`<button data-i="${i}" class="${o===t||(o.dept===t.dept&&o.no===t.no)?"on":""}">${DOC[o.dept].room.replace("KHÁM ","")} · số ${o.no}</button>`).join("")}</div>`:""}
+    <div class="card" style="text-align:center"><b>Đã lấy số thành công!</b><br><span class="hint">Hãy tải ảnh phiếu về máy để đưa cho nhân viên.</span></div>
+    <img src="${url}" alt="Phiếu số thứ tự ${t.no}">
+    <button class="btn" id="dl">⬇️ Tải ảnh phiếu về máy</button>
+    <button class="btn sec" id="sh" ${navigator.share?"":"hidden"}>Chia sẻ / Lưu vào Ảnh</button>
+    <p class="hint" style="text-align:center">Nếu máy không tự tải: nhấn giữ vào ảnh rồi chọn <b>Lưu ảnh</b>.</p>
+    <button class="btn sec" id="more">+ Đăng ký thêm người khác</button>`;
+  $("dl").onclick = ()=>{ const a=document.createElement("a"); a.href=url; a.download=`so-${t.dept}-${t.no}-${t.d}.png`; document.body.appendChild(a); a.click(); a.remove(); };
+  $("sh").onclick = ()=> c.toBlob(async blob=>{
+    const f=new File([blob],`so-${t.dept}-${t.no}.png`,{type:"image/png"});
+    try{ if(navigator.canShare&&navigator.canShare({files:[f]})) await navigator.share({files:[f],title:"Phiếu số thứ tự"}); else $("dl").click(); }catch{}
+  });
+  $("more").onclick = ()=>{ $("tv").hidden=true; $("fv").hidden=false; render(); window.scrollTo({top:0}); };
+  document.querySelectorAll(".mini button").forEach(b=>b.onclick=()=>showTicket(items[+b.dataset.i]));
+  window.scrollTo({top:0});
+}
+
+/* ---------- Gửi đăng ký ---------- */
 const ERR = {CLOSED_DAY:"Hôm nay phòng khám nghỉ.",CLOSED_TIME:"Ngoài giờ đăng ký (11:00 – 15:00).",
   FULL:"Đã hết số hôm nay. Mời bạn đăng ký vào ngày khám sau.",PHONE_LIMIT:"Một số điện thoại chỉ đăng ký tối đa 3 lượt/ngày."};
-function err(t){const m=$("msg");m.textContent=t;m.style.display="block";m.scrollIntoView({behavior:"smooth",block:"center"})}
+function err(t){ const m=$("msg"); m.textContent=t; m.style.display="block"; m.scrollIntoView({behavior:"smooth",block:"center"}); }
 
 $("f").addEventListener("submit", async e=>{
   e.preventDefault();
@@ -164,13 +239,14 @@ $("f").addEventListener("submit", async e=>{
   const {data,error}=await sb.rpc("register_ticket",{p_dept:dept,p_name:name,p_phone:phone,p_age:age,p_gender:g,
     p_category:cat,p_symptoms:v("sym")||null,p_details:details,p_urgent:flags.length>0});
   if(error){ const k=Object.keys(ERR).find(k=>error.message.includes(k)); $("btn").disabled=false; status(); return err(ERR[k]||"Đăng ký thất bại, vui lòng thử lại."); }
-  $("app").style.display="none";window.scrollTo({top:0,behavior:"smooth"});
-  $("done").innerHTML=`<div class="card ticket"><p>Số thứ tự của bạn – ${dept==="nhi"?"Khám Nhi":"Khám Sản"}</p>
-    <div class="no">${data}</div><p><b>${name}</b> · ${phone}</p>
-    <p>Vui lòng có mặt lúc <b>17:00</b> hôm nay. Hãy chụp màn hình lưu lại số này.</p>
-    ${flags.length?`<p style="color:var(--err)"><b>Bạn có dấu hiệu nguy hiểm đã khai báo. Hãy đi cấp cứu nếu tình trạng nặng hơn.</b></p>`:""}
-    <button class="submit" style="position:static" onclick="location.reload()">Đăng ký thêm người khác</button></div>`;
+  const t={dept,no:data,name,age,phone,cat,sym:v("sym"),flags,d:vnDate(),time:vnNow().slice(11,16)};
+  store.add(t); showTicket(t); status();
 });
+
+/* ---------- Khởi động: tự tải ngay ---------- */
+render(); status(); setInterval(status,30000);
+const today = store.get();
+if(today.length) showTicket(today[today.length-1]);
 </script>
 </body>
 </html>
